@@ -1,0 +1,50 @@
+@startuml Restaurant
+
+class Restaurant {
+    name STRING
+    image_URL STRING
+    menus Array<Menu>
+    tables Array<Table>
+    Bookings Array<Booking>
+}
+
+class Table {
+    number INT
+    seats INT
+    bookings Array<Booking>
+}
+
+class Booking {
+    group_name STRING
+    time DATE
+    number_of_persons INT
+}
+
+class Menu {
+    name STRING
+    items Array<Item>
+}
+
+class Item {
+    name STRING
+    ingredients Array<Ingredient>
+    price FLOAT
+}
+
+class Ingredient {
+    name STRING
+    isAllergen BOOL
+}
+
+class person {
+    name STRING
+    telephone STRING
+}
+
+Restaurant--{Menu
+Menu--{Item
+Item--{Ingredient
+Restaurant--{Table
+Table--{Booking
+
+@enduml
