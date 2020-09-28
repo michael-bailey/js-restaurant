@@ -1,44 +1,61 @@
 @startuml Restaurant
 
+' notes
+' note top of Restaurant : This is the main class of the module
+' note left of Table : This Represents a sing table in the Restaurant 
+
 class Restaurant {
     name STRING
-    image_URL STRING
+    image_url STRING
     menus Array<Menu>
     tables Array<Table>
-    Bookings Array<Booking>
+
+    constructor(name: STRING, image_url: STRING, tables: Array<Table>?, menus Array<Menu>?)
+    getMenus()
+    getMenu(name: STRING)
+    getItem(name: STRING)
+    getTables()
+    getBookings()
+    getBooking(date: DATE)
 }
 
 class Table {
     number INT
     seats INT
     bookings Array<Booking>
+
+    getSeats()
+    getBookings()
+    getBooking(date: DATE)
 }
 
 class Booking {
     group_name STRING
     time DATE
     number_of_persons INT
+
+    getPersonCount()
+    getDate()
 }
 
 class Menu {
     name STRING
     items Array<Item>
+
+    getItem(name: STRING)
 }
 
 class Item {
     name STRING
     ingredients Array<Ingredient>
     price FLOAT
+
+    getAllergens()
 }
 
 class Ingredient {
     name STRING
     isAllergen BOOL
-}
-
-class person {
-    name STRING
-    telephone STRING
 }
 
 Restaurant--{Menu
