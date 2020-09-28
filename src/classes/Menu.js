@@ -4,6 +4,8 @@ class Menu {
     name = ""
     items = []
 
+    static default = new Menu("default menu", [Item.default])
+
     constructor(name, items = []) {
         if (!name) throw new Error("no name passed")
 

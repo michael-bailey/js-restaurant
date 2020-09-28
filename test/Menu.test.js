@@ -11,6 +11,7 @@ describe("menu tests", () => {
         expect(menu.items).toEqual([Item.default, Item.default])
 
         expect(() => {new Menu()}).toThrow()
+        expect(() => {new Menu("menu", [0])}).toThrow()
     })
 
     test("test menu get item", () => {
@@ -27,9 +28,10 @@ describe("menu tests", () => {
 
         menu.addItem(Item.default)
 
-
         expect(menu.items.length).toBe(1)
         expect(menu.items).toEqual([Item.default])
+
+        expect(() => {menu.addItem(0)}).toThrow()
     })
 
     test("test menu remove item", () => {
