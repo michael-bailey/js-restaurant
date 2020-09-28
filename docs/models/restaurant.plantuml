@@ -19,6 +19,23 @@ class Restaurant {
     getBooking(date: DATE)
 }
 
+class Menu {
+    name STRING
+    items Array<Item>
+
+    getItem(name: STRING)
+    addItem(item: Item)
+    removeItem(name: STRING)
+}
+
+class Item {
+    name STRING
+    ingredients Array<Ingredient>
+    price FLOAT
+
+    getAllergens()
+}
+
 class Table {
     number INT
     seats INT
@@ -36,21 +53,6 @@ class Booking {
 
     getPersonCount()
     getDate()
-}
-
-class Menu {
-    name STRING
-    items Array<Item>
-
-    getItem(name: STRING)
-}
-
-class Item {
-    name STRING
-    ingredients Array<Ingredient>
-    price FLOAT
-
-    getAllergens()
 }
 
 class Ingredient {
