@@ -1,0 +1,23 @@
+{
+  "name": "restaurant",
+  "version": "1.0.0",
+  "description": "A representation of a restaurant in js using sqlite",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "test-watch": "jest --watchAll"
+  },
+  "author": "michael bailey",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.4.2"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "build",
+      "node_modules",
+      "templates"
+    ]
+  }
+}
