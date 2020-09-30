@@ -41,18 +41,18 @@ class Table {
     seats INT
     bookings Array<Booking>
 
-    getSeats()
     getBookings()
-    getBooking(date: DATE)
+    addBooking(booking: Booking)
+    removeBooking(booking: Booking)
+    cleanBookings()
 }
 
 class Booking {
-    group_name STRING
+    groupName STRING
+    contactNumber STRING
     time DATE
-    number_of_persons INT
 
-    getPersonCount()
-    getDate()
+    isExpired()
 }
 
 class Ingredient {
