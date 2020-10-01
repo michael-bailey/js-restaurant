@@ -20,5 +20,8 @@
       "node_modules",
       "templates"
     ]
+  },
+  "dependencies": {
+    "sqlite3": "^5.0.0"
   }
 }
