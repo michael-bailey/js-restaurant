@@ -3,8 +3,10 @@ const {db} = require("../database")
 
 // TODO: - rewriting in a async mode and implemting database methids (not 3rd degree normalised)
 class Ingredient {
+    id = 0
     name = ""
     isAllergen = false
+    itemID = 0
 
     static async getInstanceById(id) {
         return new Promise((res,rej) => {
@@ -24,6 +26,7 @@ class Ingredient {
 
         this.name = data.name
         this.isAllergen = data.isAllergen
+        this.itemID = data.itemID
 
         if (data.id) {
 
@@ -37,11 +40,11 @@ class Ingredient {
             return new Promise((res, rej) => {
 
                 // attempt to create a new table in the db
-                db.all("CREATE TABLE IF NOT EXISTS ingredients(id INTEGER PRIMARY KEY, name TEXT, isAllergen BOOL)", (err) => {
+                db.all("CREATE TABLE IF NOT EXISTS ingredients(id INTEGER PRIMARY KEY, name TEXT, isAllergen BOOL, itemID INTEGER)", (err) => {
                     if (err) rej(err)
 
                     // attempt to insert the new object into the db
-                    db.run("INSERT INTO ingredients(name, isAllergen) VALUES(?,?)", [this.name, this.isAllergen], function(err) {
+                    db.run("INSERT INTO ingredients(name, isAllergen, itemID) VALUES(?,?,?)", [this.name, this.isAllergen, this.itemID], function(err) {
                         if (err) console.log(err);
 
                         // assign the new id of the object
