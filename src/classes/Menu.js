@@ -2,9 +2,18 @@ const { Item } = require("../classes/Item")
 const { db } = require("../database")
 
 class Menu {
-    id = 0
+    id = -1
     name = ""
     restaurantID = 0
+
+    static async getInstanceById(id) {
+        return new Promise((res,rej) => {
+            db.all(`SELECT * FROM menus WHERE id=${id}`, (err, rows) => {
+                if (err) rej(err)
+                res(new Menu(rows[0]))
+            })
+        })
+    }
 
     constructor(data) {
         if (!data.name) throw new Error("no name passed")
