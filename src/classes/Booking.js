@@ -1,10 +1,9 @@
-
 class Booking {
     groupName = ""
     contactNumber = ""
     time = Date.now()
 
-    static booking = new Booking("michaels group", "nil", Date.now())
+    static default = new Booking("michaels group", "nil", Date.now())
 
     constructor(groupName, contactNumber, time) {
         if (!groupName) throw new Error("no group name")
@@ -19,7 +18,6 @@ class Booking {
     isExpired() {
         return this.time < Date.now()
     }
-
 }
 
 module.exports = {Booking}
