@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "jest",
-    "test-watch": "jest --watchAll",
-    "test-coverage": "jest --coverage=true"
+    "test": "jest --coverage=true",
+    "test-watch": "jest --watchAll"
   },
   "author": "michael bailey",
   "license": "MIT",
