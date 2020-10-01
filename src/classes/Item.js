@@ -6,6 +6,16 @@ class Item {
 
     static default = new Item({name: "std dish", price: 10.00})
 
+    static async getInstanceById() {
+        return new Promise((res,rej) => {
+            db.all(`SELECT * FROM items WHERE id=${id}`, (err, rows) => {
+                if (err) rej(err)
+                res(new Item(rows[0]))
+            })
+        })
+        rej(undefined)
+    }
+
     constructor(data) {
 
         if (!data.name) throw new Error("no name provided")
