@@ -58,6 +58,9 @@ class Booking {
 class Ingredient {
     name STRING
     isAllergen BOOL
+
+    static getInstanceById(id: INT)
+    constructor(data: Object)
 }
 
 Restaurant--{Menu
