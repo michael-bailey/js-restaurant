@@ -36,6 +36,14 @@ class Item {
     getAllergens()
 }
 
+class Ingredient {
+    name STRING
+    isAllergen BOOL
+
+    static getInstanceById(id: INT)
+    constructor(data: Object)
+}
+
 class Table {
     number INT
     seats INT
@@ -55,13 +63,7 @@ class Booking {
     isExpired()
 }
 
-class Ingredient {
-    name STRING
-    isAllergen BOOL
 
-    static getInstanceById(id: INT)
-    constructor(data: Object)
-}
 
 Restaurant--{Menu
 Menu--{Item
