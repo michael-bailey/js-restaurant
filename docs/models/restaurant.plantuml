@@ -33,10 +33,15 @@ class Item {
     ingredients Array<Ingredient>
     price FLOAT
 
+    static default()
+
+    static getInstanceById(id: INTERGER )
+    constructor(data: Object)
     getAllergens()
 }
 
 class Ingredient {
+    id INTERGER
     name STRING
     isAllergen BOOL
 
