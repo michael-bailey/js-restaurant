@@ -1,11 +1,10 @@
 const { db } = require("../database")
 
 class Item {
+    id = -1
     name = ""
     price = 0.00
     menuID = 0
-
-    static default = new Item({name: "std dish", price: 10.00})
 
     static async getInstanceById() {
         return new Promise((res,rej) => {
@@ -22,7 +21,7 @@ class Item {
         if (!data.name) throw new Error("no name provided")
         if (!data.price) throw new Error("no price provided")
 
-        this.id
+        this.id = data.id
         this.name = data.name
         this.price = data.price
         this.menuID = data.menuID
