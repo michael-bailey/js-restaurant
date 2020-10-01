@@ -12,7 +12,6 @@ describe("restaurant tests", () => {
         expect(restaurant.name).toBe("The three pilchards")
         expect(restaurant.image).toBe("https://www.example.com/")
         db.all("SELECT * FROM restaurants WHERE id = 1", (err, rows) => {
-            console.log(restaurant);
             expect(rows[0].id).toBe(restaurant.id)
             done()
         })
@@ -27,7 +26,6 @@ test('can create an instance of an restaurant from a row', (done) => {
         expect(restaurant.name).toBe('The three pilchards')
         db.get('SELECT COUNT(id) AS total FROM restaurants;', (err, count) => {
             expect(count.total).toBe(1)
-            console.log(count)
             done()
         })
     })        
