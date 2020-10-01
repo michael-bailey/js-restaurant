@@ -38,6 +38,7 @@ class Ingredient {
 
                 // attempt to create a new table in the db
                 db.all("CREATE TABLE IF NOT EXISTS ingredients(id INTEGER PRIMARY KEY, name TEXT, isAllergen BOOL)", (err) => {
+                    if (err) rej(err)
 
                     // attempt to insert the new object into the db
                     db.run("INSERT INTO ingredients(name, isAllergen) VALUES(?,?)", [this.name, this.isAllergen], function(err) {
