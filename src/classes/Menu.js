@@ -1,32 +1,38 @@
 const { Item } = require("../classes/Item")
+const { db } = require("../database")
 
 class Menu {
+    id = 0
     name = ""
-    items = []
+    restaurantID = 0
 
-    static default = new Menu("default menu", [Item.default])
+    constructor(data) {
+        if (!data.name) throw new Error("no name passed")
 
-    constructor(name, items = []) {
-        if (!name) throw new Error("no name passed")
+        this.id = data.id
+        this.name = data.name
+        this.restaurantID = data.restaurantID
 
-        if (items.map(item => item instanceof Item).includes(false)) throw new Error("an item passed is not an Item")
+        if (this.id) {
+            return Promise.resolve(this)
+        } else {
+            let newMenu = this
 
-        this.name = name
-        this.items = items
-    }
+            return new Promise((res, rej) => {
 
-    getItem(name) {
-        return this.items.filter(item => item.name.includes(name))[0];
-    }
+                // attept to create new table
+                db.all("CREATE TABLE IF NOT EXISTS menus(id INTEGER PRIMARY KEY, name TEXT, restaurantID INTEGER)" ,function(err) {
+                    if (err) rej(err)
 
-    addItem(item) {
-        if (!(item instanceof Item)) throw new Error("item is not a type of Item")
+                    db.run("INSERT INTO menus(name, restaurantID) VALUES(?,?)", [this.name, this.restaurantID], function() {
+                        if (err) rej(err)
 
-        this.items.push(item)
-    }
-
-    removeItem(name) {
-        this.items = this.items.filter(item => item.name != name)
+                        newMenu.id = this.lastID
+                        res(newMenu)
+                    })
+                })
+            });
+        }
     }
 }
 
