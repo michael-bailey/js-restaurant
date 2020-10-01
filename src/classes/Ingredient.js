@@ -3,7 +3,7 @@ const {db} = require("../database")
 
 // TODO: - rewriting in a async mode and implemting database methids (not 3rd degree normalised)
 class Ingredient {
-    id = 0
+    id = -1
     name = ""
     isAllergen = false
     itemID = 0
@@ -15,8 +15,6 @@ class Ingredient {
                 res(new Ingredient(rows[0]))
             })
         })
-
-        return new Ingredient()
     }
 
     constructor(data) {
