@@ -5,11 +5,12 @@ class Booking {
 
     static default = new Booking("michaels group", "nil", Date.now())
 
-    constructor(groupName, contactNumber, time) {
+    constructor({id, groupName, contactNumber, time}) {
         if (!groupName) throw new Error("no group name")
         if (!contactNumber) throw new Error("no contact number")
         if (!time) throw new Error("no time given");
 
+        this.id = id
         this.groupName = groupName
         this.contactNumber = contactNumber
         this.time = new Date(time)
