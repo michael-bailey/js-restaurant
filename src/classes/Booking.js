@@ -7,7 +7,6 @@ class Booking {
     time = Date.now()
     tableID = -1
 
-
     constructor(data) {
         if (!data.groupName) throw new Error("no group name")
         if (!data.contactNumber) throw new Error("no contact number")
