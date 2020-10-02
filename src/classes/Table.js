@@ -1,33 +1,37 @@
-const {Booking} = require("./Booking")
+const { db } = require("../database")
 
 class Table {
+    id = -1
     seats = 0
     number = 0
-    bookings = []
+    restaurantID = -1
 
-    constructor(number, seats, bookings = []) {
-        if (!number) throw new Error("no name given")
-        if (!seats) throw new Error("no seat number given")
+    constructor(data) {
+        if (!data.number) throw new Error("no name given")
+        if (!data.seats) throw new Error("no seat number given")
 
-        this.number = number
-        this.seats = seats
-        this.bookings = bookings
-    }
+        this.id = data.id
+        this.number = data.number
+        this.seats = data.seats
+        this.restaurantID = data.restaurantID
 
-    addBooking(booking) {
-        if (!booking instanceof Booking)  throw new Error("not instance of booking")
+        if (this.id) {
+            return Promise.resolve(this)
+        } else {
+            var newTable = this
 
-        this.bookings.push(booking)
-    }
+            return new Promise((res, rej) => {
+                db.all("CREATE TABLE IF NOT EXISTS tables(id INTEGER PRIMARY KEY, number INTEGER, seats INTEGER, restaurantID INTEGER)", (err) => {
+                    if (err) rej(err)
 
-    removeBooking(name) {
-        if (name == undefined) throw new Error("no string provided")
-
-        this.bookings = this.bookings.filter(item => item.groupName != name)
-    }
-
-    clear() {
-        this.bookings = this.bookings.filter(item => item.time > Date.now())
+                    db.run("INSERT INTO tables(number, seats, restaurantID) VALUES(?, ?, ?)", [this.numebr, this.seats, this.restaurantID] ,function(err) {
+                        if (err) rej(err)
+                        newTable.id = this.lastID
+                        res(newTable)
+                    })
+                })
+            })
+        }
     }
 }
 
