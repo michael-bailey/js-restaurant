@@ -6,6 +6,15 @@ class Table {
     number = 0
     restaurantID = -1
 
+    static async getInstanceById(id) {
+        return new Promise((res,rej) => {
+            db.all(`SELECT * FROM tables WHERE id=${id}`, (err, rows) => {
+                if (err) rej(err)
+                res(new Table(rows[0]))
+            })
+        })
+    }
+
     constructor(data) {
         if (!data.number) throw new Error("no name given")
         if (!data.seats) throw new Error("no seat number given")
@@ -24,7 +33,7 @@ class Table {
                 db.all("CREATE TABLE IF NOT EXISTS tables(id INTEGER PRIMARY KEY, number INTEGER, seats INTEGER, restaurantID INTEGER)", (err) => {
                     if (err) rej(err)
 
-                    db.run("INSERT INTO tables(number, seats, restaurantID) VALUES(?, ?, ?)", [this.numebr, this.seats, this.restaurantID] ,function(err) {
+                    db.run("INSERT INTO tables(number, seats, restaurantID) VALUES(?, ?, ?)", [this.number, this.seats, this.restaurantID] ,function(err) {
                         if (err) rej(err)
                         newTable.id = this.lastID
                         res(newTable)
