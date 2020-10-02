@@ -25,4 +25,13 @@ describe("Booking tests", () => {
         expect(bookingHasExpired.isExpired()).toBeTruthy()
         done()
     })
+
+    test('test get instance by id', async (done) => {
+        let i = await Booking.getInstanceById(1)
+
+        expect(i instanceof Booking).toBeTruthy()
+        expect(i.groupName).toBe("michael")
+        expect(i.time).toEqual(new Date("2020-10-25T15:00:00"))
+        done()     
+    })
 })
