@@ -5,6 +5,15 @@ class Restaurant {
     name = ""
     image = ""
 
+    static getInstanceById(id) {
+        return new Promise((res,rej) => {
+            db.all(`SELECT * FROM restaurants WHERE id=${id}`, (err, rows) => {
+                if (err) rej(err)
+                res(new Restaurant(rows[0]))
+            })
+        })
+    }
+
     // always return a promise for each call to the new restaurant
     constructor(data) {
 
@@ -19,11 +28,16 @@ class Restaurant {
             return Promise.resolve(this)
         } else {
             return new Promise((res, rej) => {
-                db.run("INSERT INTO restaurants(name, image) VALUES(?, ?)", [this.name, this.image] ,function(err) {
-                    restaurant.id = this.lastID
+                db.all("CREATE TABLE IF NOT EXISTS restaurants(id INTEGER PRIMARY KEY, name TEXT, image TEXT)", (err) => {
                     if (err) rej(err)
-                    res(restaurant)
+
+                    db.run("INSERT INTO restaurants(name, image) VALUES(?, ?)", [this.name, this.image] ,function(err) {
+                        if (err) rej(err)
+                        restaurant.id = this.lastID
+                        res(restaurant)
+                    })
                 })
+
             })
         }
     }
