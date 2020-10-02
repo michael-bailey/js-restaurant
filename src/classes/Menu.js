@@ -9,6 +9,7 @@ class Menu {
     static async getInstanceById(id) {
         return new Promise((res,rej) => {
             db.all(`SELECT * FROM menus WHERE id=${id}`, (err, rows) => {
+
                 if (err) rej(err)
                 res(new Menu(rows[0]))
             })
@@ -16,6 +17,7 @@ class Menu {
     }
 
     constructor(data) {
+        
         if (!data.name) throw new Error("no name passed")
 
         this.id = data.id
@@ -30,7 +32,7 @@ class Menu {
             return new Promise((res, rej) => {
 
                 // attept to create new table
-                db.all("CREATE TABLE IF NOT EXISTS menus(id INTEGER PRIMARY KEY, name TEXT, restaurantID INTEGER)" ,function(err) {
+                db.all("CREATE TABLE IF NOT EXISTS menus(id INTEGER PRIMARY KEY, name TEXT, restaurantID INTEGER)", (err) => {
                     if (err) rej(err)
 
                     db.run("INSERT INTO menus(name, restaurantID) VALUES(?,?)", [this.name, this.restaurantID], function() {
