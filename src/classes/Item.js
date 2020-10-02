@@ -6,7 +6,7 @@ class Item {
     price = 0.00
     menuID = 0
 
-    static async getInstanceById() {
+    static async getInstanceById(id) {
         return new Promise((res,rej) => {
             db.all(`SELECT * FROM items WHERE id=${id}`, (err, rows) => {
                 if (err) rej(err)
@@ -36,7 +36,7 @@ class Item {
 
             return new Promise((res, rej) => {
                 // attmpt to create a table
-                db.all("CREATE TABLE IF NOT EXISTS items(id INTEGER PRIMARY KEY, name TEXT, price FLOAT, menuID INTEGER)", function(err) {
+                db.all("CREATE TABLE IF NOT EXISTS items(id INTEGER PRIMARY KEY, name TEXT, price FLOAT, menuID INTEGER)", (err) => {
                     if (err) console.log(err)
 
                     // attempt to insert the new object into the database
