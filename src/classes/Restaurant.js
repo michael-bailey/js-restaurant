@@ -21,7 +21,7 @@ class Restaurant {
         this.name = data.name
         this.image = data.image
 
-        let restaurant = this
+        let newRestaurant = this
 
         // check tp see if an id is present.
         if (this.id) {
@@ -33,8 +33,8 @@ class Restaurant {
 
                     db.run("INSERT INTO restaurants(name, image) VALUES(?, ?)", [this.name, this.image] ,function(err) {
                         if (err) rej(err)
-                        restaurant.id = this.lastID
-                        res(restaurant)
+                        newRestaurant.id = this.lastID
+                        res(newRestaurant)
                     })
                 })
 
