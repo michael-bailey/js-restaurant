@@ -31,3 +31,5 @@ It gives examples of:
  - [Menu](./Menu.md)
  - [Item](./Item.md)
  - [Ingredient](./Ingredient.md)
+ - [Table](./Table.md)
+ - [Booking](./Booking.md)
