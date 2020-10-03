@@ -1,32 +1,49 @@
 const { Item } = require("../classes/Item")
+const { db } = require("../database")
 
 class Menu {
+    id = -1
     name = ""
-    items = []
+    restaurantID = 0
 
-    static default = new Menu("default menu", [Item.default])
+    static async getInstanceById(id) {
+        return new Promise((res,rej) => {
+            db.all(`SELECT * FROM menus WHERE id=${id}`, (err, rows) => {
 
-    constructor(name, items = []) {
-        if (!name) throw new Error("no name passed")
-
-        if (items.map(item => item instanceof Item).includes(false)) throw new Error("an item passed is not an Item")
-
-        this.name = name
-        this.items = items
+                if (err) rej(err)
+                res(new Menu(rows[0]))
+            })
+        })
     }
 
-    getItem(name) {
-        return this.items.filter(item => item.name.includes(name))[0];
-    }
+    constructor(data) {
+        
+        if (!data.name) throw new Error("no name passed")
 
-    addItem(item) {
-        if (!(item instanceof Item)) throw new Error("item is not a type of Item")
+        this.id = data.id
+        this.name = data.name
+        this.restaurantID = data.restaurantID
 
-        this.items.push(item)
-    }
+        if (this.id) {
+            return Promise.resolve(this)
+        } else {
+            let newMenu = this
 
-    removeItem(name) {
-        this.items = this.items.filter(item => item.name != name)
+            return new Promise((res, rej) => {
+
+                // attept to create new table
+                db.all("CREATE TABLE IF NOT EXISTS menus(id INTEGER PRIMARY KEY, name TEXT, restaurantID INTEGER)", (err) => {
+                    if (err) rej(err)
+
+                    db.run("INSERT INTO menus(name, restaurantID) VALUES(?,?)", [this.name, this.restaurantID], function() {
+                        if (err) rej(err)
+
+                        newMenu.id = this.lastID
+                        res(newMenu)
+                    })
+                })
+            });
+        }
     }
 }
 

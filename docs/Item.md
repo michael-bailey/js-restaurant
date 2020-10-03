@@ -1,4 +1,6 @@
-# Title
+# Item
+
+this class describes an item on the menu
 
 ## Use
 
@@ -8,6 +10,6 @@
 
 ## Source Overview
 
-``` lang
+``` JavaScript 
 
 ```

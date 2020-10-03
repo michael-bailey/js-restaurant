@@ -5,60 +5,65 @@
 ' note left of Table : This Represents a sing table in the Restaurant 
 
 class Restaurant {
+    id INT
     name STRING
     image_url STRING
-    menus Array<Menu>
-    tables Array<Table>
 
-    constructor(name: STRING, image_url: STRING, tables: Array<Table>?, menus Array<Menu>?)
-    getMenus()
-    getMenu(name: STRING)
-    getItem(name: STRING)
-    getTables()
-    getBookings()
-    getBooking(date: DATE)
+    static getInstanceById(id: INT)
+    constructor(data: Object)
 }
 
 class Menu {
+    id INT
     name STRING
-    items Array<Item>
+    restaurantID INT
 
-    getItem(name: STRING)
-    addItem(item: Item)
-    removeItem(name: STRING)
+    static getInstanceById(id: INT)
+    constructor(data: Object)
 }
 
 class Item {
+    id INT
     name STRING
-    ingredients Array<Ingredient>
     price FLOAT
+    menuID INT
 
-    getAllergens()
-}
-
-class Table {
-    number INT
-    seats INT
-    bookings Array<Booking>
-
-    getSeats()
-    getBookings()
-    getBooking(date: DATE)
-}
-
-class Booking {
-    group_name STRING
-    time DATE
-    number_of_persons INT
-
-    getPersonCount()
-    getDate()
+    static getInstanceById(id: INT)
+    constructor(data: Object)
 }
 
 class Ingredient {
+    id INT
     name STRING
     isAllergen BOOL
+    itemID INT
+
+    static getInstanceById(id: INT)
+    constructor(data: Object)
 }
+
+class Table {
+    id INT
+    number INT
+    seats INT
+    restaurantID INT
+
+    static getInstanceById(id: INT)
+    constructor(data: Object)
+}
+
+class Booking {
+    id INT
+    groupName STRING
+    contactNumber STRING
+    time DATE
+    tableID
+
+    static getInstanceById(id: INT)
+    constructor(data: Object)
+}
+
+
 
 Restaurant--{Menu
 Menu--{Item
