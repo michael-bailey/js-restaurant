@@ -18,12 +18,25 @@ This is created and added to a Table instance. the constructor creates a new ins
 
 ## Methods
 
-| name | description |
-| ---- | ----------- |
-|      |             |
+| name                                     | description                                                  |
+| ---------------------------------------- | ------------------------------------------------------------ |
+| static async getBookingsByTable(tableID) | This gets all instnces fromt he database based on the tableID provided |
+| static async getInstanceById(id)         | This gets a single instance of a Booking from the database based on the |
+| constructor(data)                        | This Accepts an object containing all the fields that the new object needs to be created. If there is not id then a new instance is created in a database first before returning. This returns a promise. |
 
 ## Source Overview
 
-``` lang
+``` javascript
+class Booking {
+    id = -1
+    groupName = ""
+    contactNumber = ""
+    time = Date.now()
+    tableID = -1
 
+		static async getBookingsByTable(tableID)
+		static async getInstanceById(id)
+
+		constructor(data)
+}
 ```
