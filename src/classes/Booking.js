@@ -7,6 +7,18 @@ class Booking {
     time = Date.now()
     tableID = -1
 
+    static async getBookingsByTable(tableID) {
+        return new Promise((res, rej) => {
+            db.all(`SELECT * FROM bookings WHERE tableID = ${tableID}`, (err, rows) => {
+                if (err) rej(err)
+
+                Promise.all(rows)
+                .then((result) => res(result))
+
+            })
+        })
+    }
+
     static async getInstanceById(id) {
         return new Promise((res,rej) => {
             db.all(`SELECT * FROM bookings WHERE id=${id}`, (err, rows) => {
