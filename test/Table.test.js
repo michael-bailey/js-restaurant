@@ -14,4 +14,13 @@ describe("Table tests", () => {
         expect(() => new Table({})).toThrow()
         done()
     })
+
+    test('test get instance by id', async (done) => {
+        let i = await Table.getInstanceById(1)
+
+        expect(i instanceof Table).toBeTruthy()
+        expect(i.number).toBe(1)
+        expect(i.seats).toBe(6)
+        done()     
+    })
 })

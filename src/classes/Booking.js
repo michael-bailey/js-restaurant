@@ -7,6 +7,27 @@ class Booking {
     time = Date.now()
     tableID = -1
 
+    static async getBookingsByTable(tableID) {
+        return new Promise((res, rej) => {
+            db.all(`SELECT * FROM bookings WHERE tableID = ${tableID}`, (err, rows) => {
+                if (err) rej(err)
+
+                Promise.all(rows)
+                .then((result) => res(result))
+
+            })
+        })
+    }
+
+    static async getInstanceById(id) {
+        return new Promise((res,rej) => {
+            db.all(`SELECT * FROM bookings WHERE id=${id}`, (err, rows) => {
+                if (err) rej(err)
+                res(new Booking(rows[0]))
+            })
+        })
+    }
+
     constructor(data) {
         if (!data.groupName) throw new Error("no group name")
         if (!data.contactNumber) throw new Error("no contact number")
@@ -27,7 +48,7 @@ class Booking {
                 db.all("CREATE TABLE IF NOT EXISTS bookings(id INTEGER PRIMARY KEY, groupName TEXT, contactNumber TEXT, time DATE, tableID INTEGER)", (err) => {
                     if (err) rej(err)
 
-                    db.run("INSERT INTO bookings(groupName, contactNumber, time, tableID) VALUES(?, ?, ?, ?)", [this.groupName, this.contactNumber, this.contactNumber, this.tableID], function(err) {
+                    db.run("INSERT INTO bookings(groupName, contactNumber, time, tableID) VALUES(?, ?, ?, ?)", [this.groupName, this.contactNumber, this.time, this.tableID], function(err) {
                         if (err) rej(err)
                         newBooking.id = this.lastID
                         res(newBooking)

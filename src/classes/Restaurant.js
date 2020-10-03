@@ -5,7 +5,7 @@ class Restaurant {
     name = ""
     image = ""
 
-    static getInstanceById(id) {
+    static async getInstanceById(id) {
         return new Promise((res,rej) => {
             db.all(`SELECT * FROM restaurants WHERE id=${id}`, (err, rows) => {
                 if (err) rej(err)
