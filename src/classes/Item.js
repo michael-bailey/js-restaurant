@@ -4,7 +4,7 @@ class Item {
     id = -1
     name = ""
     price = 0.00
-    menuID = 0
+    menuID = -1
 
     static async getInstanceById(id) {
         return new Promise((res,rej) => {
