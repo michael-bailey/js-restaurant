@@ -22,7 +22,8 @@ It gives examples of:
     - using SQL to modify tables
     - Using SQL to delete items off of a database
  - Data Persistance
-    - !TODO
+    - using SQL in conjunction with the constructor to save instances
+    - using SQL to retrieve past instances from a database
 
 ---
 
