@@ -4,7 +4,7 @@ const { db } = require("../database")
 class Menu {
     id = -1
     name = ""
-    restaurantID = 0
+    restaurantID = -1
 
     static async getInstanceById(id) {
         return new Promise((res,rej) => {
