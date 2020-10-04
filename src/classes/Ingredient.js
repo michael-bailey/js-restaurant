@@ -6,7 +6,7 @@ class Ingredient {
     id = -1
     name = ""
     isAllergen = false
-    itemID = 0
+    itemID = -1
 
     static async getInstanceById(id) {
         return new Promise((res,rej) => {
